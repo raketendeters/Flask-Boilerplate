@@ -1,6 +1,6 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask.ext.login import UserMixin
-
+import datetime
 from app import db, bcrypt
 
 
@@ -15,6 +15,8 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String)
     email = db.Column(db.String, primary_key=True)
     confirmation = db.Column(db.Boolean)
+    create_date = db.Column(db.DateTime, default=datetime.datetime.now)
+    last_modified = db.Column(db.DateTime, onupdate=datetime.datetime.now, default=datetime.datetime.now)
     _password = db.Column(db.String)
 
     @property
